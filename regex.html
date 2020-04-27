@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	    <meta charset="utf-8">
+	    <title>Regular Expression Evaluator</title>
+	    <link rel="stylesheet" href="regex.css">
+	</head>
+	<body>
+		<h1>Regular Expression Evaluator</h1>
+	    <h3>Use this to test out your regular expressions before adding them to your code. Exceptions are also displayed.</h3>
+	   	<p>Enter evaluation text and a regular expression and hit a button. Or start hitting buttons to see how it works.</p>
+	   	<p>The pre-populated text shows how to parse a URL into protocol, user/pass, hostname, port, file, parameters and finally, anchors.</p>	 
+	    
+	    <div id="container">
+	    	<!--
+	    	<form action=""> 
+	    	 -->
+	    		<div class="row">
+	    			<div class="col-25">
+	    				<label for="evaltext">Text to Evaluate:</label>
+	    			</div>
+	    			<div class="col-75">
+			    		<input type="text" id="evaltext" name="evaltxt" value="http://user:pass@hostname.com:80/foo/bar.jsp?parm1=foo&parm2=bar#xyz">
+	    			</div>
+	    		</div>
+	    		<div class="row">
+	    			<div class="col-25">
+	    				<label for="evaltext">Regular Expression to Use (omit the opening and closing slashes):</label>
+	    			</div>
+	    			<div class="col-75">    		
+	    				<input type="text" id="regextext" name="regextext" value="^([a-z+\w\+\.\-]+:\/\/)?([!-~]+@)?([^\/?#:]*)(:[\d]*)?(\/[^?#]*)?(\?[^#]*)?(\#.*)?">
+	    			</div>
+	    		</div>
+	    		<div class="row">
+	    			<input type="submit" value="Split" onclick="performSplit()" title="Spits the text into an array of results matching a string against the regular expression">
+	    			<input type="submit" value="Search" onclick="performSearch()" title="Returns the index of the matching expression">
+	    			<input type="submit" value="Match" onclick="performMatch()" title="Returns an array of results matching a string against the regular expression." >
+	    		</div>
+	    	<!-- 
+	    	</form>
+	    	 -->
+	    	<div id='outputContainer'>
+	    		<textarea readonly id="output" rows="10" cols="1">Results will appear here</textarea>
+	    		<div class="row">
+	    			<input type="submit" value="Clear All Values" onclick="performClear()" title="Clear all the values on the page">
+	    		</div>
+	    	</div>
+	    </div>
+
+		<script>
+			function performClear()
+			{
+				document.getElementById("evaltext").value = "";
+				document.getElementById("regextext").value = "";
+				document.getElementById("output").value = "";
+			}
+			
+			function performSplit()
+			{
+				var evalTxt = document.getElementById("evaltext").value;
+				var regexTxt = document.getElementById("regextext").value;
+				
+				try
+				{
+					var splitResultsList = evalTxt.split(new RegExp(regexTxt));
+					var splitResults = "";
+					var listLength = splitResultsList.length;
+					for (var i = 0; i < listLength; i++)
+					{
+						splitResults += "[" + i + "] = " + splitResultsList[i];
+						if (i < (listLength - 1))
+							splitResults += "\n";
+					}
+					document.getElementById("output").value = splitResults;				
+				}
+				catch(err)
+				{
+					document.getElementById("output").value = err.message;
+				}
+				
+			}
+			
+			function performSearch()
+			{
+				var evalTxt = document.getElementById("evaltext").value;
+				var regexTxt = document.getElementById("regextext").value;
+				
+				try
+				{
+					var searchResult = "index = " + evalTxt.search(new RegExp(regexTxt));			
+					document.getElementById("output").value = searchResult;
+				}
+				catch(err)
+				{
+					document.getElementById("output").value = err.message;
+				}				
+			}
+				
+			function performMatch()
+			{
+				var evalTxt = document.getElementById("evaltext").value;
+				var regexTxt = document.getElementById("regextext").value;
+				
+				try 
+				{
+					var matchResultsList = evalTxt.match(new RegExp(regexTxt));
+					if (matchResultsList != null)
+					{
+						var matchResults = "";
+						var listLength = matchResultsList.length;
+						for (var i = 0; i < listLength; i++)
+						{
+							matchResults += "[" + i + "] = " + matchResultsList[i];
+							if (i < (listLength - 1))
+								matchResults += "\n";
+						}
+					}
+					else
+						matchResults = "Not found (result was 'null')"
+						
+					document.getElementById("output").value = matchResults;										
+				}
+				catch(err)
+				{
+					document.getElementById("output").value = err.message;
+				}
+			}
+			
+		</script>
+	</body>
+</html>
+    
+
