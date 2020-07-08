@@ -1,51 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-	    <meta charset="utf-8">
-	    <title>Regular Expression Evaluator</title>
-	    <link rel="stylesheet" href="regex.css">
+		<meta charset="utf-8">
+		<meta name="description" content="Regex evaluator. Parse a URL with regex. Test your regular expressions before you add them to your code.">
+		<title>Charles Newman's Regular Expression Evaluator</title>
+		<link rel="stylesheet" href="regex.css">
 	</head>
 	<body>
-		<h1>Regular Expression Evaluator</h1>
-	    <h3>Use this to test out your regular expressions before adding them to your code. Exceptions are also displayed.</h3>
-	   	<p>Enter evaluation text and a regular expression and hit a button. Or start hitting buttons to see how it works.</p>
-	   	<p>The pre-populated text shows how to parse a URL into protocol, user/pass, hostname, port, file, parameters and finally, anchors.</p>	 
-	    
-	    <div id="container">
-	    	<!--
-	    	<form action=""> 
-	    	 -->
-	    		<div class="row">
-	    			<div class="col-25">
-	    				<label for="evaltext">Text to Evaluate:</label>
-	    			</div>
-	    			<div class="col-75">
-			    		<input type="text" id="evaltext" name="evaltxt" value="http://user:pass@hostname.com:80/foo/bar.jsp?parm1=foo&parm2=bar#xyz">
-	    			</div>
-	    		</div>
-	    		<div class="row">
-	    			<div class="col-25">
-	    				<label for="evaltext">Regular Expression to Use (omit the opening and closing slashes):</label>
-	    			</div>
-	    			<div class="col-75">    		
-	    				<input type="text" id="regextext" name="regextext" value="^([a-z+\w\+\.\-]+:\/\/)?([!-~]+@)?([^\/?#:]*)(:[\d]*)?(\/[^?#]*)?(\?[^#]*)?(\#.*)?">
-	    			</div>
-	    		</div>
-	    		<div class="row">
-	    			<input type="submit" value="Split" onclick="performSplit()" title="Spits the text into an array of results matching a string against the regular expression">
-	    			<input type="submit" value="Search" onclick="performSearch()" title="Returns the index of the matching expression">
-	    			<input type="submit" value="Match" onclick="performMatch()" title="Returns an array of results matching a string against the regular expression." >
-	    		</div>
-	    	<!-- 
-	    	</form>
-	    	 -->
-	    	<div id='outputContainer'>
-	    		<textarea readonly id="output" rows="10" cols="1">Results will appear here</textarea>
-	    		<div class="row">
-	    			<input type="submit" value="Clear All Values" onclick="performClear()" title="Clear all the values on the page">
-	    		</div>
-	    	</div>
-	    </div>
+		<div id="header">
+			<h1>Regular Expression Evaluator</h1>
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;by <a href="https://charlespatricknewman.net/tech">Charles Newman</a></p>
+		</div>
+		<h3>This page can be used to test your regular expressions before adding them to your code.</h3>
+		<p>Enter some text and a regular expression and hit a button. Or start hitting buttons to see how it works on the values I've provided. The pre-populated text shows how to <b><i>parse a URL</i></b> into protocol, user/pass, hostname, port, file, parameters and finally, anchors.</p>	 
+		
+		<div id="container">
+			<!--
+			<form action=""> 
+			 -->
+				<div class="row">
+					<div class="col-25">
+						<label for="evaltext">Text to Evaluate:</label>
+					</div>
+					<div class="col-75">
+						<input type="text" id="evaltext" name="evaltxt" value="http://user:pass@hostname.com:80/foo/bar.jsp?parm1=foo&parm2=bar#xyz">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label for="evaltext">Regular Expression to Use (omit the opening and closing slashes):</label>
+					</div>
+					<div class="col-75">			
+						<input type="text" id="regextext" name="regextext" value="^([a-z+\w\+\.\-]+:\/\/)?([!-~]+@)?([^\/?#:]*)(:[\d]*)?(\/[^?#]*)?(\?[^#]*)?(\#.*)?">
+					</div>
+				</div>
+				<div class="row">
+					<input type="submit" value="Split" onclick="performSplit()" title="Spits the text into an array of results matching a string against the regular expression">
+					<input type="submit" value="Search" onclick="performSearch()" title="Returns the index of the matching expression">
+					<input type="submit" value="Match" onclick="performMatch()" title="Returns an array of results matching a string against the regular expression." >
+				</div>
+			<!-- 
+			</form>
+			 -->
+			<div id='outputContainer'>
+				<textarea readonly id="output" rows="10" cols="1">Results will appear here</textarea>
+				<div class="row">
+					<input type="submit" value="Clear All Values" onclick="performClear()" title="Clear all the values on the page">
+				</div>
+			</div>
+		</div>
+		<p>Feel free to "view source" on this page to see the CSS, HTML, and JavaScript. The layout is responsive.</p>
 
 		<script>
 			function performClear()
@@ -71,7 +75,7 @@
 						if (i < (listLength - 1))
 							splitResults += "\n";
 					}
-					document.getElementById("output").value = splitResults;				
+					document.getElementById("output").value = splitResults;
 				}
 				catch(err)
 				{
@@ -87,7 +91,7 @@
 				
 				try
 				{
-					var searchResult = "index = " + evalTxt.search(new RegExp(regexTxt));			
+					var searchResult = "index = " + evalTxt.search(new RegExp(regexTxt));
 					document.getElementById("output").value = searchResult;
 				}
 				catch(err)
@@ -118,7 +122,7 @@
 					else
 						matchResults = "Not found (result was 'null')"
 						
-					document.getElementById("output").value = matchResults;										
+					document.getElementById("output").value = matchResults;
 				}
 				catch(err)
 				{
@@ -129,5 +133,4 @@
 		</script>
 	</body>
 </html>
-    
 
