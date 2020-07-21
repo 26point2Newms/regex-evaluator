@@ -31,6 +31,7 @@ input[type=submit] {
     border-radius: 4px;
     cursor: pointer;
     float: right;
+    -webkit-appearance: none;
 }
 
 
@@ -92,6 +93,9 @@ input[type=submit] {
     }
     input[type=submit] {
         margin: 10px 0px 0px 0px;
+        box-sizing: border-box;
+        height: 100%;
+        -webkit-appearance: none;
     }
     textarea {
         margin: 10px 0px 0px 0px;
